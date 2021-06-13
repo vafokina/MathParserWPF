@@ -87,7 +87,11 @@
     <Compile Include="Model\AstNode.cs" />
     <Compile Include="Model\Exceptions.cs" />
     <Compile Include="Model\MathInterpreter.cs" />
-    <Compile Include="Model\MathOperations\AddCommand.cs" />
+    <Compile Include="Model\MathOperations\AdditionCommand.cs" />
+    <Compile Include="Model\MathOperations\DivisionCommand.cs" />
+    <Compile Include="Model\MathOperations\IMathCommand.cs" />
+    <Compile Include="Model\MathOperations\MultiplicationCommand.cs" />
+    <Compile Include="Model\MathOperations\SubtractionCommand.cs" />
     <Compile Include="Model\MathParser.cs" />
     <Compile Include="Model\ParserBase.cs" />
     <Compile Include="ViewModel\Controller.cs" />

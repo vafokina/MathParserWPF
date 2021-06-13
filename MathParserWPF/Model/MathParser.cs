@@ -27,7 +27,7 @@ namespace MathParserWPF.Model
                 throw new ParserBaseException(
                 string.Format("Ожидалось число (pos={0})", Pos));
             Skip();
-            return new AstNode(AstNodeType.NUMBER, number);
+            return new AstNode(AstNode.Type.Number, number);
         }
         // group -> "(" term ")" | NUMBER
         public AstNode Group()
@@ -51,8 +51,8 @@ namespace MathParserWPF.Model
                 string oper = Match("*", "/"); // здесь выбор альтернативы
                 AstNode temp = Group(); // реализован иначе
                 result =
-                oper == "*" ? new AstNode(AstNodeType.MUL, result, temp)
-                : new AstNode(AstNodeType.DIV, result, temp);
+                oper == "*" ? new AstNode(AstNode.Type.Mul, result, temp)
+                : new AstNode(AstNode.Type.Div, result, temp);
             }
             return result;
         }
@@ -65,8 +65,8 @@ namespace MathParserWPF.Model
                 string oper = Match("+", "-");
                 AstNode temp = Mult();
                 result =
-                oper == "+" ? new AstNode(AstNodeType.ADD, result, temp)
-                : new AstNode(AstNodeType.SUB, result, temp);
+                oper == "+" ? new AstNode(AstNode.Type.Add, result, temp)
+                : new AstNode(AstNode.Type.Sub, result, temp);
             }
             return result;
         }

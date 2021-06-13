@@ -14,4 +14,8 @@ namespace MathParserWPF.Model
     {
         public InterpreterException(string message) : base(message) { }
     }
+    public class ComputingException : Exception
+    {
+        public ComputingException(string message) : base(message) { }
+    }
 }
