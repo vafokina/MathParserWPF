@@ -98,7 +98,7 @@ namespace MathParserWPF.Model
         }
     }
 
-    // класс констант для перечисления возможных типов токенов
+    // класс констант для перечисления возможных типов 
     public class AstNodeType
     {
         public const int UNKNOWN = 0;

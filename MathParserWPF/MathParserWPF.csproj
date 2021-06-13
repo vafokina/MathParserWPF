@@ -87,6 +87,7 @@
     <Compile Include="Model\AstNode.cs" />
     <Compile Include="Model\Exceptions.cs" />
     <Compile Include="Model\MathInterpreter.cs" />
+    <Compile Include="Model\MathOperations\AddCommand.cs" />
     <Compile Include="Model\MathParser.cs" />
     <Compile Include="Model\ParserBase.cs" />
     <Compile Include="ViewModel\Controller.cs" />
