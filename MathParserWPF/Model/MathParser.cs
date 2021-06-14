@@ -18,7 +18,7 @@ namespace MathParserWPF.Model
         public AstNode NUMBER()
         {
             string number = "";
-            while (Current == '.' || Current == ',' || char.IsDigit(Current))
+            while (Current == '.' || char.IsDigit(Current))
             {
                 number += Current;
                 Next();
@@ -46,12 +46,12 @@ namespace MathParserWPF.Model
         public AstNode Mult()
         {
             AstNode result = Group();
-            while (IsMatch("*", "/"))
+            while (IsMatch("*", "×", "/", "÷"))
             { // повторяем нужное кол-во раз
-                string oper = Match("*", "/"); // здесь выбор альтернативы
+                string oper = Match("*", "×", "/", "÷"); // здесь выбор альтернативы
                 AstNode temp = Group(); // реализован иначе
                 result =
-                oper == "*" ? new AstNode(AstNode.Type.Mul, result, temp)
+                oper == "*" || oper == "×" ? new AstNode(AstNode.Type.Mul, result, temp)
                 : new AstNode(AstNode.Type.Div, result, temp);
             }
             return result;

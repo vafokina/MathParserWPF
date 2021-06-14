@@ -10,11 +10,10 @@ using System.Windows.Input;
 
 namespace MathParserWPF.ViewModel
 {
-    class VirtualKeyboardHandler : INotifyPropertyChanged
+   public class VirtualKeyboardHandler : INotifyPropertyChanged
     {
         readonly char[] _permittedChars = { '1', '2' };
         private string _inputString = "";
-        private string _displayText = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
         
@@ -30,13 +29,12 @@ namespace MathParserWPF.ViewModel
         // Открытые свойства
         public string InputString
         {
-            /*protected*/ set
+            set
             {
                 bool previousCanExecuteDeleteChar = this.CanExecuteDeleteCharacter(null);
 
                 if (this.SetProperty<string>(ref _inputString, value))
                 {
-                   // MessageBox.Show(InputString);
                    // this.inputString = FormatText(inputString);
 
                     if (previousCanExecuteDeleteChar != this.CanExecuteDeleteCharacter(null))
@@ -45,12 +43,6 @@ namespace MathParserWPF.ViewModel
             }
 
             get { return _inputString; }
-        }
-
-        public string DisplayText
-        {
-            /*protected*/ set { this.SetProperty<string>(ref _displayText, value); }
-            get { return _displayText; }
         }
 
         // Реализация ICommand
@@ -80,19 +72,6 @@ namespace MathParserWPF.ViewModel
           //  bool hasNonNumbers = str.IndexOfAny(_specialChars) != -1;
             string formatted = str;
 
-          //  if (hasNonNumbers || str.Length < 4 || str.Length > 10) {}
-           //else 
-            if (str.Length < 8)
-            {
-                formatted = String.Format("{0}-{1}", str.Substring(0, 3),
-                    str.Substring(3));
-            }
-            else
-            {
-                formatted = String.Format("({0}) {1}-{2}", str.Substring(0, 3),
-                    str.Substring(3, 3),
-                    str.Substring(6));
-            }
             return formatted;
         }
 
