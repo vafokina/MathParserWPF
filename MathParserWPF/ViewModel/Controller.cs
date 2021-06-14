@@ -12,11 +12,21 @@ using MathParserWPF.View;
 
 namespace MathParserWPF.ViewModel
 {
-   public class Controller : INotifyPropertyChanged
+    public class Controller : INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
         private int _i = 0;
         private double _width;
+
+        public Controller()
+        {
+            _mainWindow = (MainWindow)Application.Current.MainWindow;
+            WindowWidth = 550;
+            this.CloseHistoryCommand = new DelegateCommand(CloseHistory);
+            this.OpenHistoryCommand = new DelegateCommand(OpenHistory);
+            this.ShiftHistoryCommand = new DelegateCommand(ShiftHistory);
+        }
+
 
         public double WindowWidth
         {
@@ -31,30 +41,12 @@ namespace MathParserWPF.ViewModel
             }
         }
 
-        public Controller()
-        {
-            _mainWindow = (MainWindow)Application.Current.MainWindow;
-            WindowWidth = 550;
-            
-        }
+        // Реализация ICommand
+        public IDelegateCommand OpenHistoryCommand { protected set; get; }
 
-        private readonly PaletteHelper _paletteHelper = new PaletteHelper();
+        public IDelegateCommand CloseHistoryCommand { protected set; get; }
+        public IDelegateCommand ShiftHistoryCommand { protected set; get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-       
-
-        
-        private void ToggleBaseColour(bool isDark)
-        {
-            ITheme theme = _paletteHelper.GetTheme();
-            IBaseTheme baseTheme = isDark ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
-            theme.SetBaseTheme(baseTheme);
-            _paletteHelper.SetTheme(theme);
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -62,31 +54,25 @@ namespace MathParserWPF.ViewModel
             _i++;
         }
 
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
-        {
-            var isChecked = ((ToggleButton)sender).IsChecked;
-            ToggleBaseColour(isChecked != null && (bool)isChecked);
-        }
-
-        private void OpenHistoryButton_Click(object sender, RoutedEventArgs e)
+        private void OpenHistory(object param)
         {
             _mainWindow.HistoryView.Visibility = Visibility.Visible;
             _mainWindow.OpenHistoryButton.Visibility = Visibility.Collapsed;
 
             double t = _mainWindow.HistoryListView.Width;
-            WindowWidth += t;
+            WindowWidth = WindowWidth + t;
         }
 
-        private void CloseHistoryButton_Click(object sender, RoutedEventArgs e)
+        private void CloseHistory(object param)
         {
             _mainWindow.HistoryView.Visibility = Visibility.Collapsed;
             _mainWindow.OpenHistoryButton.Visibility = Visibility.Visible;
 
             double t = _mainWindow.HistoryListView.Width;
-            WindowWidth -= t;
+            WindowWidth = WindowWidth - t;
         }
 
-        private void ShiftHistoryButton_Click(object sender, RoutedEventArgs e)
+        private void ShiftHistory(object param)
         {
             if (Grid.GetColumn(_mainWindow.HistoryView) == 0)
             {
@@ -111,17 +97,11 @@ namespace MathParserWPF.ViewModel
             _mainWindow.AppView.ColumnDefinitions.ElementAt(1).Width = t;
         }
 
-        private void OperandButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-        private void DigitButton_Click(object sender, RoutedEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-
-        }
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

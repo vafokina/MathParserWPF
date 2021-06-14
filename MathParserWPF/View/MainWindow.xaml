@@ -12,6 +12,7 @@
         KeyDown="MainWindow_OnKeyDown">
     <Window.Resources>
         <viewModel:VirtualKeyboardHandler x:Key="KeyboardHandler" />
+
     </Window.Resources>
 
     <!--<Window.InputBindings>
@@ -32,12 +33,10 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Menu Height="40" >
-                <MenuItem x:Name="OpenHistoryButton" Header="История" Visibility="Collapsed" VerticalAlignment="Center" Click="OpenHistoryButton_Click"/>
+            <Menu Height="40">
+                <MenuItem x:Name="OpenHistoryButton" Header="История" Visibility="Collapsed" VerticalAlignment="Center" 
+                          Command="{Binding OpenHistoryCommand}"/>
             </Menu>
-        </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-<ToggleButton Checked="ToggleButton_OnChecked"></ToggleButton>
         </StackPanel>
 
         <Grid x:Name="CalculatorView" Grid.Row="1" Grid.Column="0" Margin="2,2"
@@ -108,7 +107,8 @@
                     Command="{Binding AddCharacterCommand}" CommandParameter=".">.</Button>
             <Button Grid.Row="5" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" Click="Button_Click">=</Button>
         </Grid>
-        <Grid x:Name="HistoryView" Grid.Row="1" Grid.Column="1" Margin="2,2">
+        <Grid x:Name="HistoryView" Grid.Row="1" Grid.Column="1" Margin="2,2"
+              >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -118,11 +118,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="ShiftHistoryButton" Grid.Row="0" Grid.Column="0" Width="40" Height="40" Style="{StaticResource MaterialDesignFlatButton}" Click="ShiftHistoryButton_Click">
+            <Button x:Name="ShiftHistoryButton" Grid.Row="0" Grid.Column="0" Width="40" Height="40" Style="{StaticResource MaterialDesignFlatButton}" 
+                    Command="{Binding ShiftHistoryCommand}">
                 <materialDesign:PackIcon Kind="ArrowLeftRight" Margin="-3,-3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Button>
             <Label x:Name="HistoryLabel" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="2,2,2,5">История</Label>
-            <Button x:Name="CloseHistoryButton" Grid.Row="0" Grid.Column="2" Width="40" Height="40" Style="{StaticResource MaterialDesignFlatButton}" Click="CloseHistoryButton_Click">
+            <Button x:Name="CloseHistoryButton" Grid.Row="0" Grid.Column="2" Width="40" Height="40" Style="{StaticResource MaterialDesignFlatButton}" 
+                    Command="{Binding CloseHistoryCommand}">
                 <materialDesign:PackIcon Kind="Close" Margin="-3,-3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Button>
             <view:ButtonListControl x:Name="HistoryListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Width="250"></view:ButtonListControl>

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,19 +14,17 @@ namespace MathParserWPF.View
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            // задаем главный контроллер (модель представления)
+            // вспомогательные указаны в представлении 
             this.DataContext = new Controller();
         }
 
         private readonly PaletteHelper _paletteHelper = new PaletteHelper();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
 
         private void ToggleBaseColour(bool isDark)
         {
@@ -37,34 +36,14 @@ namespace MathParserWPF.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AstNode program = MathParser.Parse(Input.Text);
-            Input.Text = MathInterpreter.Execute(program).ToString();
+            string source = Input.Text;
+            AstNode program = MathParser.Parse(source);
+            string result = MathInterpreter.Execute(program).ToString("#############0.##############", CultureInfo.InvariantCulture);
+            Input.Text = result;
+            Output.Text = source;
+            MathExpression expression = new MathExpression(source, result);
         }
 
-        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void OpenHistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void CloseHistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ShiftHistoryButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void OperandButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void DigitButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
 
