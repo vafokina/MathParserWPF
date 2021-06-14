@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using MaterialDesignThemes.Wpf;
+using MathParserWPF.Model;
+using MathParserWPF.Model.Data;
 using MathParserWPF.View;
 
 namespace MathParserWPF.ViewModel
@@ -22,6 +25,7 @@ namespace MathParserWPF.ViewModel
         {
             _mainWindow = (MainWindow)Application.Current.MainWindow;
             WindowWidth = 550;
+            this.CalculateCommand = new DelegateCommand(Calculate);
             this.CloseHistoryCommand = new DelegateCommand(CloseHistory);
             this.OpenHistoryCommand = new DelegateCommand(OpenHistory);
             this.ShiftHistoryCommand = new DelegateCommand(ShiftHistory);
@@ -42,16 +46,20 @@ namespace MathParserWPF.ViewModel
         }
 
         // Реализация ICommand
+        public IDelegateCommand CalculateCommand { protected set; get; }
         public IDelegateCommand OpenHistoryCommand { protected set; get; }
-
         public IDelegateCommand CloseHistoryCommand { protected set; get; }
         public IDelegateCommand ShiftHistoryCommand { protected set; get; }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Calculate(object param)
         {
-            _mainWindow.HistoryListView.Add("String \n" + _i);
-            _i++;
+            string source = _mainWindow.Input.Text;
+            AstNode program = MathParser.Parse(source);
+            string result = MathInterpreter.Execute(program).ToString("#############0.##############", CultureInfo.InvariantCulture);
+            _mainWindow.Input.Text = result;
+            _mainWindow.Output.Text = source;
+            MathExpression expression = new MathExpression(source, result);
+            _mainWindow.HistoryManager.AddNote(expression);
         }
 
         private void OpenHistory(object param)

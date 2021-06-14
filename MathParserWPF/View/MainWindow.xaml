@@ -9,7 +9,7 @@
         xmlns:viewModel="clr-namespace:MathParserWPF.ViewModel"
         mc:Ignorable="d"
         Title="Математический синтаксический анализатор" Height="450" Width="{Binding WindowWidth, Mode=TwoWay}" FontSize="18" 
-        KeyDown="MainWindow_OnKeyDown">
+        KeyDown="MainWindow_OnKeyDown" Closing="Window_Closing">
     <Window.Resources>
         <viewModel:VirtualKeyboardHandler x:Key="KeyboardHandler" />
 
@@ -105,7 +105,10 @@
                     Command="{Binding AddCharacterCommand}" CommandParameter="0">0</Button>
             <Button Grid.Row="5" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}"
                     Command="{Binding AddCharacterCommand}" CommandParameter=".">.</Button>
-            <Button Grid.Row="5" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" Click="Button_Click">=</Button>
+            <Button Grid.Row="5" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}"  
+                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Window}}"
+                   Command="{Binding CalculateCommand}">=</Button>
+                  
         </Grid>
         <Grid x:Name="HistoryView" Grid.Row="1" Grid.Column="1" Margin="2,2"
               >

@@ -16,32 +16,15 @@ namespace MathParserWPF.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public HistoryManager HistoryManager { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             // задаем главный контроллер (модель представления)
             // вспомогательные указаны в представлении 
-            this.DataContext = new Controller();
-        }
-
-        private readonly PaletteHelper _paletteHelper = new PaletteHelper();
-
-        private void ToggleBaseColour(bool isDark)
-        {
-            ITheme theme = _paletteHelper.GetTheme();
-            IBaseTheme baseTheme = isDark ? new MaterialDesignDarkTheme() : (IBaseTheme)new MaterialDesignLightTheme();
-            theme.SetBaseTheme(baseTheme);
-            _paletteHelper.SetTheme(theme);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string source = Input.Text;
-            AstNode program = MathParser.Parse(source);
-            string result = MathInterpreter.Execute(program).ToString("#############0.##############", CultureInfo.InvariantCulture);
-            Input.Text = result;
-            Output.Text = source;
-            MathExpression expression = new MathExpression(source, result);
+            VMContainer vmContainer = new VMContainer(new Controller(), new HistoryManager(), new VirtualKeyboardHandler());
+            this.DataContext = vmContainer.Controller; //new Controller();
+            HistoryManager = vmContainer.HistoryManager;  // new HistoryManager();
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -57,6 +40,11 @@ namespace MathParserWPF.View
         {
                 var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
                 binding.UpdateSource();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            HistoryManager.SaveHistory();
         }
     }
 }

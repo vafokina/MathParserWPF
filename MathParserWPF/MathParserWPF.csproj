@@ -86,6 +86,8 @@
     </Compile>
     <Compile Include="Model\AstNode.cs" />
     <Compile Include="Model\Exceptions.cs" />
+    <Compile Include="Model\Data\ExpressionsList.cs" />
+    <Compile Include="Model\Data\MathExpression.cs" />
     <Compile Include="Model\MathInterpreter.cs" />
     <Compile Include="Model\MathOperations\AdditionCommand.cs" />
     <Compile Include="Model\MathOperations\DivisionCommand.cs" />
@@ -96,8 +98,10 @@
     <Compile Include="Model\ParserBase.cs" />
     <Compile Include="ViewModel\Controller.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="ViewModel\HistoryManager.cs" />
     <Compile Include="ViewModel\IDelegateCommand.cs" />
     <Compile Include="ViewModel\VirtualKeyboardHandler.cs" />
+    <Compile Include="ViewModel\VMContainer.cs" />
     <Compile Include="View\ButtonListControl.xaml.cs">
       <DependentUpon>ButtonListControl.xaml</DependentUpon>
     </Compile>
