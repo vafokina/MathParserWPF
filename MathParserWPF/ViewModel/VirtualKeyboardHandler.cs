@@ -1,63 +1,56 @@
-﻿using MathParserWPF.View;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace MathParserWPF.ViewModel
 {
     public class VirtualKeyboardHandler : INotifyPropertyChanged
     {
+        private Controller _controller;
         private string _inputString = "";
         private string _displayString = "";
-        private MainWindow _mainWindow;
 
         // Конструктор
-        public VirtualKeyboardHandler()
+        public VirtualKeyboardHandler(Controller controller)
         {
-            _mainWindow = (MainWindow)Application.Current.MainWindow;
+            _controller = controller;
             AddCharacterCommand = new DelegateCommand(AddCharacter);
             DeleteCharacterCommand = new DelegateCommand(DeleteCharacter, CanExecuteDeleteCharacter);
             ClearCommand = new DelegateCommand(Clear, CanExecuteClear);
         }
 
         // Открытые свойства
+        // Строка ввода
         public string InputString
         {
             set
             {
-                bool previousCanExecuteClear = this.CanExecuteClear(null);
-                bool previousCanExecuteDeleteChar = this.CanExecuteDeleteCharacter(null);
-                bool previousCanExecuteCalculate = _mainWindow.Controller.CanExecuteCalculate(null);
+                bool previousCanExecuteClear = CanExecuteClear(null);
+                bool previousCanExecuteDeleteChar = CanExecuteDeleteCharacter(null);
+                bool previousCanExecuteCalculate = _controller.CanExecuteCalculate(null);
 
                 value = InputChecker.CorrectString(value);
                 //if (!InputChecker.PreCheckCharacters(value)) return;
 
-                if (this.SetProperty<string>(ref _inputString, value))
+                if (SetProperty(ref _inputString, value))
                 {
-                     this.DisplayString = InputChecker.FormatText(_inputString);
+                     DisplayString = InputChecker.FormatText(_inputString);
 
-                    if (previousCanExecuteClear != this.CanExecuteClear(null))
-                        this.ClearCommand.RaiseCanExecuteChanged();
-                    if (previousCanExecuteDeleteChar != this.CanExecuteDeleteCharacter(null))
-                        this.DeleteCharacterCommand.RaiseCanExecuteChanged();
-                    if (previousCanExecuteCalculate != _mainWindow.Controller.CanExecuteCalculate(null))
-                        _mainWindow.Controller.CalculateCommand.RaiseCanExecuteChanged();
+                    if (previousCanExecuteClear != CanExecuteClear(null))
+                        ClearCommand.RaiseCanExecuteChanged();
+                    if (previousCanExecuteDeleteChar != CanExecuteDeleteCharacter(null))
+                        DeleteCharacterCommand.RaiseCanExecuteChanged();
+                    if (previousCanExecuteCalculate != _controller.CanExecuteCalculate(null))
+                        _controller.CalculateCommand.RaiseCanExecuteChanged();
                 }
             }
 
-            get { return _inputString; }
+            get => _inputString;
         }
-
+        // Отображение строки ввода в нужном формате (в представлении)
         public string DisplayString
         {
-            protected set { this.SetProperty<string>(ref _displayString, value); }
-            get { return _displayString; }
+            protected set => SetProperty(ref _displayString, value);
+            get => _displayString;
         }
 
         // Реализация ICommand
@@ -69,33 +62,33 @@ namespace MathParserWPF.ViewModel
         // Методы Execute() и CanExecute() 
         public void AddCharacter(object param)
         {
-            this.InputString += param as string;
+            InputString += param as string;
         }
 
         public void Clear(object param)
         {
-            this.InputString = "";
+            InputString = "";
         }
 
         public bool CanExecuteClear(object param)
         {
-            return this.InputString.Length > 0;
+            return InputString.Length > 0;
         }
 
         public void DeleteCharacter(object param)
         {
-            this.InputString = this.InputString.Substring(0, this.InputString.Length - 1);
+            InputString = InputString.Substring(0, InputString.Length - 1);
         }
 
         public bool CanExecuteDeleteCharacter(object param)
         {
-            return this.InputString.Length > 0;
+            return InputString.Length > 0;
         }
 
         protected bool SetProperty<T>(ref T storage, T value,
             [CallerMemberName] string propertyName = null)
         {
-            if (object.Equals(storage, value))
+            if (Equals(storage, value))
                 return false;
 
             storage = value;

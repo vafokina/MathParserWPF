@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using MathParserWPF.View;
+﻿using System.Windows.Input;
 
 namespace MathParserWPF.ViewModel
 {
     public class PhysicalKeyboardHandler
     {
-        private MainWindow _mainWindow;
-        private bool isShift = false;
+        // Главный ViewModel
+        private readonly Controller _controller;
+        // Состояние кнопки Shift (нажата или нет)
+        private bool _isShift;
 
         // Конструктор
-        public PhysicalKeyboardHandler()
+        public PhysicalKeyboardHandler(Controller controller)
         {
-            _mainWindow = (MainWindow)Application.Current.MainWindow;
+            _controller = controller;
         }
 
+        // Обработчики нажатия клавиш
         public void HandleKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.LeftShift || e.Key == Key.RightShift) { isShift = true; return; }
+            if (e.Key == Key.LeftShift || e.Key == Key.RightShift) { _isShift = true; return; }
 
             //MessageBox.Show(e.Key.ToString());
-             string param = "";
+            string param = "";
             switch (e.Key)
             {
                 case Key.NumPad0:
@@ -49,7 +45,7 @@ namespace MathParserWPF.ViewModel
                 case Key.NumPad9:
                     param = "9"; break;
                 case Key.D0:
-                    if (isShift) param = ")";
+                    if (_isShift) param = ")";
                     else param = "0"; break;
                 case Key.D1:
                     param = "1"; break;
@@ -66,10 +62,10 @@ namespace MathParserWPF.ViewModel
                 case Key.D7:
                     param = "7"; break;
                 case Key.D8:
-                    if (isShift) param = "×";
+                    if (_isShift) param = "×";
                     else param = "8"; break;
                 case Key.D9:
-                    if (isShift) param = "(";
+                    if (_isShift) param = "(";
                     else param = "9"; break;
                 case Key.Add:
                     param = "+"; break;
@@ -86,26 +82,29 @@ namespace MathParserWPF.ViewModel
                 case Key.OemQuestion:
                     param = "÷"; break;
                 case Key.OemPlus:
-                    if (isShift)
-                    { if (_mainWindow.Controller.CanExecuteCalculate(null))
-                        _mainWindow.Controller.Calculate(null); return; }
+                    if (_isShift)
+                    {
+                        if (_controller.CanExecuteCalculate(null))
+                            _controller.Calculate(null); return;
+                    }
                     else param = "+"; break;
                 case Key.OemMinus:
                     param = "-"; break;
                 case Key.Return:
-                    if (_mainWindow.Controller.CanExecuteCalculate(null))
-                        _mainWindow.Controller.Calculate(null); return;
+                    if (_controller.CanExecuteCalculate(null))
+                        _controller.Calculate(null); return;
                 case Key.Back:
-                { if (_mainWindow.Controller.VirtualKeyboardHandler.CanExecuteDeleteCharacter(null))
-                    _mainWindow.Controller.VirtualKeyboardHandler.DeleteCharacter(null); return; }
+                    {
+                        if (_controller.VirtualKeyboardHandler.CanExecuteDeleteCharacter(null))
+                            _controller.VirtualKeyboardHandler.DeleteCharacter(null); return;
+                    }
 
             }
-            _mainWindow.Controller.VirtualKeyboardHandler.AddCharacter(param);
+            _controller.VirtualKeyboardHandler.AddCharacter(param);
         }
-
         public void HandleKeyUp(KeyEventArgs e)
         {
-            if (e.Key == Key.LeftShift || e.Key == Key.RightShift) isShift = false;
+            if (e.Key == Key.LeftShift || e.Key == Key.RightShift) _isShift = false;
         }
     }
 }

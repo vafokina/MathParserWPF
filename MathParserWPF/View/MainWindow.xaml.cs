@@ -1,12 +1,7 @@
 ﻿using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using MaterialDesignThemes.Wpf;
-using MathParserWPF.Model;
 using MathParserWPF.ViewModel;
 
 namespace MathParserWPF.View
@@ -16,6 +11,7 @@ namespace MathParserWPF.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        // главный ViewModel
         public Controller Controller { get; set; }
 
         public MainWindow()

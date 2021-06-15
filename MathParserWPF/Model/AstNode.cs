@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MathParserWPF.Model
 {
@@ -11,13 +7,15 @@ namespace MathParserWPF.Model
         // все возможные типы узлов
         public enum Type { Unknown, Number, Add, Sub, Mul, Div }
         // тип узла (см. описание ниже)
-        public virtual Type NodeType { get; set; }
+        public Type NodeType { get; set; }
         // текст, связанный с узлом
-        public virtual string Text { get; set; }
+        public string Text { get; set; }
+
         // родительский узел для данного узла дерева
-        private AstNode parent = null;
+        private AstNode _parent;
         // потомки (ветви) данного узла дерева
-        private IList<AstNode> childs = new List<AstNode>();
+        private IList<AstNode> _children = new List<AstNode>();
+
         // конструкторы с различными параметрами (для удобства
         public AstNode(Type type, string text,
             AstNode child1, AstNode child2)
@@ -45,36 +43,37 @@ namespace MathParserWPF.Model
             : this(type, (string)null)
         {
         }
+        
         // метод добавления дочернего узла
         public void AddChild(AstNode child)
         {
             if (child.Parent != null)
             {
-                child.Parent.childs.Remove(child);
+                child.Parent._children.Remove(child);
             }
-            childs.Remove(child);
-            childs.Add(child);
-            child.parent = this;
+            _children.Remove(child);
+            _children.Add(child);
+            child._parent = this;
         }
         // метод удаления дочернего узла
         public void RemoveChild(AstNode child)
         {
-            childs.Remove(child);
-            if (child.parent == this)
-                child.parent = null;
+            _children.Remove(child);
+            if (child._parent == this)
+                child._parent = null;
         }
 
         // метод получения дочернего узла по индексу
         public AstNode GetChild(int index)
         {
-            return childs[index];
+            return _children[index];
         }
         // метод добавления дочернего узла
         public int ChildCount
         {
             get
             {
-                return childs.Count;
+                return _children.Count;
             }
         }
         // родительский узел (свойство)
@@ -82,7 +81,7 @@ namespace MathParserWPF.Model
         {
             get
             {
-                return parent;
+                return _parent;
             }
             set
             {
@@ -95,7 +94,7 @@ namespace MathParserWPF.Model
             get
             {
                 return Parent == null ? -1
-                    : Parent.childs.IndexOf(this);
+                    : Parent._children.IndexOf(this);
             }
         }
     }

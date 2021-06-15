@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MathParserWPF.Model
+﻿namespace MathParserWPF.Model
 {
     public class MathParser : ParserBase
     {
         // конструктор
         public MathParser(string source)
-        : base(source)
-        {
-        }
+        : base(source) { }
+        
         // далее идет реализация в виде функций правил грамматики
         // NUMBER -> <число>
-        public AstNode NUMBER()
+        public AstNode Number()
         {
             string number = "";
 
@@ -49,7 +42,7 @@ namespace MathParserWPF.Model
                 return result;
             }
             else
-                return NUMBER(); // число
+                return Number(); // число
         }
         // mult -> group ( ( "*" | "/" ) group )*
         public AstNode Mult()
@@ -89,7 +82,8 @@ namespace MathParserWPF.Model
         {
             return Term();
         }
-        // метод, вызывающий начальное и правило грамматики и
+
+        // метод, вызывающий начальное правило грамматики и
         // соответствующий парсинг
         public AstNode Parse()
         {

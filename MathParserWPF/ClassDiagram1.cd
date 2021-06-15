@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MathParserWPF.Model.Data.ExpressionsList">
+    <Position X="21" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Model\Data\ExpressionsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.Data.MathExpression">
+    <Position X="22.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Data\MathExpression.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.MathOperations.AdditionCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathOperations\AdditionCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.Model.MathOperations.DivisionCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathOperations\DivisionCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.Model.MathOperations.MultiplicationCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathOperations\MultiplicationCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.Model.MathOperations.SubtractionCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathOperations\SubtractionCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.Model.AstNode">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="MathParserWPF.Model.AstNode.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\AstNode.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAQACAAAAAIEAAAAAIAQAAQAAIAAAAAAAEACAAAAAA=</HashCode>
+      <FileName>Model\AstNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.ParserBaseException" Collapsed="true">
+    <Position X="24.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.InterpreterException" Collapsed="true">
+    <Position X="24.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.ComputingException" Collapsed="true">
+    <Position X="24.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.MathInterpreter">
+    <Position X="22.75" Y="4.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>RAAAAAAAAgAAAAQAAAAABAAAACCAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Model\MathInterpreter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.MathParser">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgAEAAAAAAABAAAEAAAAQAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.Model.ParserBase">
+    <Position X="21" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgICAgAAAkAAAAQACADAAAAAAACAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Model\ParserBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.View.ButtonListControl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAAAAAAAAAAAAAAABAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ButtonListControl.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.View.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAABEAAAAQAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.Controller" BaseTypeListCollapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAABABCCESAAIAAFAACEgDAgAAAIAAQAAAABAAA=</HashCode>
+      <FileName>ViewModel\Controller.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.DelegateCommand" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQEACAAQAAECAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\DelegateCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.HistoryManager" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAACQAIAABAAAAgAAAAAAAEAAAgAAKAAA=</HashCode>
+      <FileName>ViewModel\HistoryManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.InputChecker">
+    <Position X="18.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgABAAAAAAAAAAAAAAAABAAAAACAAA=</HashCode>
+      <FileName>ViewModel\InputChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.PhysicalKeyboardHandler">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAIA=</HashCode>
+      <FileName>ViewModel\PhysicalKeyboardHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MathParserWPF.ViewModel.VirtualKeyboardHandler" BaseTypeListCollapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgAgAAAAAAAAABgoAAAAAgAgAFAAgAAAgAAgEBAAAI=</HashCode>
+      <FileName>ViewModel\VirtualKeyboardHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="MathParserWPF.Model.MathOperations.IMathCommand">
+    <Position X="26.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\MathOperations\IMathCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MathParserWPF.ViewModel.IDelegateCommand">
+    <Position X="26.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\IDelegateCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

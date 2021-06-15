@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace MathParserWPF.ViewModel
 {
-   public interface IDelegateCommand : ICommand
+    public interface IDelegateCommand : ICommand
     {
-    void RaiseCanExecuteChanged();
+        void RaiseCanExecuteChanged();
     }
 
 }

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using MaterialDesignThemes.Wpf;
 using MathParserWPF.Model;
 using MathParserWPF.Model.Data;
 using MathParserWPF.View;
@@ -19,7 +13,6 @@ namespace MathParserWPF.ViewModel
     public class Controller : INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
-        private int _i = 0;
         private double _width;
         private double _height;
         private string _outputString;
@@ -32,8 +25,8 @@ namespace MathParserWPF.ViewModel
             WindowHeight = 450;
 
             HistoryManager = new HistoryManager();
-            VirtualKeyboardHandler = new VirtualKeyboardHandler();
-            PhysicalKeyboardHandler = new PhysicalKeyboardHandler();
+            VirtualKeyboardHandler = new VirtualKeyboardHandler(this);
+            PhysicalKeyboardHandler = new PhysicalKeyboardHandler(this);
 
             this.CalculateCommand = new DelegateCommand(Calculate, CanExecuteCalculate);
             this.CloseHistoryCommand = new DelegateCommand(CloseHistory);

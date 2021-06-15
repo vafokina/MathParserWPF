@@ -1,48 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathParserWPF.ViewModel
 {
     public class DelegateCommand : IDelegateCommand
     {
-        Action<object> execute;
-        Func<object, bool> canExecute;
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
 
         // Событие, необходимое для ICommand
         public event EventHandler CanExecuteChanged;
 
-        // Два конструктора
+        // Конструкторы
         public DelegateCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
-
         public DelegateCommand(Action<object> execute)
         {
-            this.execute = execute;
-            this.canExecute = this.AlwaysCanExecute;
+            _execute = execute;
+            _canExecute = AlwaysCanExecute;
         }
 
         // Методы, необходимые для ICommand
         public void Execute(object param)
         {
-            execute(param);
+            _execute(param);
         }
 
         public bool CanExecute(object param)
         {
-            return canExecute(param);
+            return _canExecute(param);
         }
 
         // Метод, необходимый для IDelegateCommand
         public void RaiseCanExecuteChanged()
         {
-            if (CanExecuteChanged != null)
-                CanExecuteChanged(this, EventArgs.Empty);
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
         // Метод CanExecute по умолчанию
@@ -50,6 +44,5 @@ namespace MathParserWPF.ViewModel
         {
             return true;
         }
-
     }
 }

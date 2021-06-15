@@ -12,18 +12,9 @@ namespace MathParserWPF.View
     public partial class ButtonListControl : UserControl
     {
         private int _maxCount;
-        private List<Button> _buttons;
-
-        public int MaxCount
-        {
-            get => _maxCount;
-            set
-            {
-                if (value <= 0 || value > 1000) throw new Exception("Число вне зоны допустимых значений");
-                _maxCount = value;
-            }
-        }
-
+        private readonly List<Button> _buttons;
+        
+        // Конструкторы
         public ButtonListControl() : this(20) { }
         public ButtonListControl(int maxCount)
         {
@@ -53,6 +44,19 @@ namespace MathParserWPF.View
             }
         }
 
+        // Открытое свойство
+        // Количество возможных кнопок (записей) в окне (истории)
+        public int MaxCount
+        {
+            get => _maxCount;
+            set
+            {
+                if (value <= 0 || value > 1000) throw new Exception("Число вне зоны допустимых значений");
+                _maxCount = value;
+            }
+        }
+
+        // Добавить запись
         public void Add(string s, ICommand command, object param, object viewModel)
         {
             for (int i = MaxCount - 2; i >= 0; i--)
@@ -75,6 +79,5 @@ namespace MathParserWPF.View
             _buttons[0].CommandParameter = param;
             _buttons[0].Visibility = Visibility.Visible;
         }
-
     }
 }
