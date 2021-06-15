@@ -58,8 +58,9 @@
                     <RowDefinition Height="Auto" MinHeight="30"/>
                     <RowDefinition Height="Auto"  MinHeight="30"/>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="Output" Grid.Row="0" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" ></TextBlock>
-                <TextBlock x:Name="Input" Grid.Row="1" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" 
+                <TextBlock  Grid.Row="0" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" 
+                            Text="{Binding OutputString}"></TextBlock>
+                <TextBlock  Grid.Row="1" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" 
                            TextWrapping="Wrap" 
                            Text="{Binding VirtualKeyboardHandler.DisplayString}"/>
             </Grid>

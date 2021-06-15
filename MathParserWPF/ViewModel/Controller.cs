@@ -22,6 +22,7 @@ namespace MathParserWPF.ViewModel
         private int _i = 0;
         private double _width;
         private double _height;
+        private string _outputString;
 
         // Конструктор
         public Controller()
@@ -43,7 +44,7 @@ namespace MathParserWPF.ViewModel
         // Открытые свойства
         public double WindowWidth
         {
-            get { return _width; }
+            get => _width;
             set
             {
                 if (value != _width)
@@ -55,13 +56,25 @@ namespace MathParserWPF.ViewModel
         }
         public double WindowHeight
         {
-            get { return _height; }
+            get => _height;
             set
             {
                 if (value != _height)
                 {
                     _height = value;
                     OnPropertyChanged("WindowHeight");
+                }
+            }
+        }
+        public string OutputString
+        {
+            get => _outputString;
+            protected set
+            {
+                if (value != _outputString)
+                {
+                    _outputString = value;
+                    OnPropertyChanged("OutputString");
                 }
             }
         }
@@ -100,7 +113,7 @@ namespace MathParserWPF.ViewModel
                 return;
             }
             VirtualKeyboardHandler.InputString = result;
-            _mainWindow.Output.Text = source;
+            OutputString = source;
             MathExpression expression = new MathExpression(source, result);
             HistoryManager.AddNote(expression);
         }

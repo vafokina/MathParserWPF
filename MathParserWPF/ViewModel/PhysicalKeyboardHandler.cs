@@ -96,7 +96,8 @@ namespace MathParserWPF.ViewModel
                     if (_mainWindow.Controller.CanExecuteCalculate(null))
                         _mainWindow.Controller.Calculate(null); return;
                 case Key.Back:
-                { _mainWindow.Controller.VirtualKeyboardHandler.DeleteCharacter(null); return; }
+                { if (_mainWindow.Controller.VirtualKeyboardHandler.CanExecuteDeleteCharacter(null))
+                    _mainWindow.Controller.VirtualKeyboardHandler.DeleteCharacter(null); return; }
 
             }
             _mainWindow.Controller.VirtualKeyboardHandler.AddCharacter(param);

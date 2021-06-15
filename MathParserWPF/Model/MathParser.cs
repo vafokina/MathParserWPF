@@ -18,6 +18,15 @@ namespace MathParserWPF.Model
         public AstNode NUMBER()
         {
             string number = "";
+
+            // проверка наличия минуса (для отрицательных чисел)
+            // на первой позиции
+            if (Current == '-')
+            {
+                number += Current;
+                Next();
+            }
+
             while (Current == '.' || char.IsDigit(Current))
             {
                 number += Current;
