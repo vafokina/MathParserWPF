@@ -16,35 +16,36 @@ namespace MathParserWPF.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public HistoryManager HistoryManager { get; set; }
+        public Controller Controller { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            // задаем главный контроллер (модель представления)
-            // вспомогательные указаны в представлении 
-            VMContainer vmContainer = new VMContainer(new Controller(), new HistoryManager(), new VirtualKeyboardHandler());
-            this.DataContext = vmContainer.Controller; //new Controller();
-            HistoryManager = vmContainer.HistoryManager;  // new HistoryManager();
+
+            this.Controller = new Controller();
+
+            this.DataContext = Controller;
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void MainWindow_OnKeyDown(object sender, KeyEventArgs e)
         {
-            VirtualKeyboardHandler.HandleKeyDown(e);
+            Controller.PhysicalKeyboardHandler.HandleKeyDown(e);
         }
-
-        private void Input_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void MainWindow_OnKeyUp(object sender, KeyEventArgs e)
         {
-                var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
-                binding.UpdateSource();
+            Controller.PhysicalKeyboardHandler.HandleKeyUp(e);
         }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            HistoryManager.SaveHistory();
+            Controller.HistoryManager.SaveHistory();
+        }
+
+        // если бы поле ввода было TextBox, это использовалось бы
+        // для обновления binding при вводе с клавиатуры
+        private void Input_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
+            binding.UpdateSource();
         }
     }
 }

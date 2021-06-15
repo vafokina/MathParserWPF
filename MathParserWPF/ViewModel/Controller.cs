@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,18 +21,26 @@ namespace MathParserWPF.ViewModel
         private MainWindow _mainWindow;
         private int _i = 0;
         private double _width;
+        private double _height;
 
+        // Конструктор
         public Controller()
         {
             _mainWindow = (MainWindow)Application.Current.MainWindow;
             WindowWidth = 550;
-            this.CalculateCommand = new DelegateCommand(Calculate);
+            WindowHeight = 450;
+
+            HistoryManager = new HistoryManager();
+            VirtualKeyboardHandler = new VirtualKeyboardHandler();
+            PhysicalKeyboardHandler = new PhysicalKeyboardHandler();
+
+            this.CalculateCommand = new DelegateCommand(Calculate, CanExecuteCalculate);
             this.CloseHistoryCommand = new DelegateCommand(CloseHistory);
             this.OpenHistoryCommand = new DelegateCommand(OpenHistory);
             this.ShiftHistoryCommand = new DelegateCommand(ShiftHistory);
         }
 
-
+        // Открытые свойства
         public double WindowWidth
         {
             get { return _width; }
@@ -44,6 +53,23 @@ namespace MathParserWPF.ViewModel
                 }
             }
         }
+        public double WindowHeight
+        {
+            get { return _height; }
+            set
+            {
+                if (value != _height)
+                {
+                    _height = value;
+                    OnPropertyChanged("WindowHeight");
+                }
+            }
+        }
+
+        // Другие ViewModels
+        public HistoryManager HistoryManager { get; set; }
+        public VirtualKeyboardHandler VirtualKeyboardHandler { get; set; }
+        public PhysicalKeyboardHandler PhysicalKeyboardHandler { get; set; }
 
         // Реализация ICommand
         public IDelegateCommand CalculateCommand { protected set; get; }
@@ -51,15 +77,37 @@ namespace MathParserWPF.ViewModel
         public IDelegateCommand CloseHistoryCommand { protected set; get; }
         public IDelegateCommand ShiftHistoryCommand { protected set; get; }
 
-        private void Calculate(object param)
+        // Методы Execute() и CanExecute() 
+        public void Calculate(object param)
         {
-            string source = _mainWindow.Input.Text;
-            AstNode program = MathParser.Parse(source);
-            string result = MathInterpreter.Execute(program).ToString("#############0.##############", CultureInfo.InvariantCulture);
-            _mainWindow.Input.Text = result;
+            string result, source;
+
+            source = VirtualKeyboardHandler.InputString;
+            //if (!InputChecker.CheckCharacters(source))
+            //{
+            //    MessageBox.Show("Выражение введено неверно");
+            //    return;
+            //}
+
+            try
+            {
+                AstNode program = MathParser.Parse(source);
+                result = MathInterpreter.Execute(program).ToString("#############0.##############", CultureInfo.InvariantCulture);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
+            VirtualKeyboardHandler.InputString = result;
             _mainWindow.Output.Text = source;
             MathExpression expression = new MathExpression(source, result);
-            _mainWindow.HistoryManager.AddNote(expression);
+            HistoryManager.AddNote(expression);
+        }
+        public bool CanExecuteCalculate(object param)
+        {
+            return (VirtualKeyboardHandler.InputString.Length > 0 &&
+                    InputChecker.CheckGroups(VirtualKeyboardHandler.InputString));
         }
 
         private void OpenHistory(object param)
@@ -67,8 +115,10 @@ namespace MathParserWPF.ViewModel
             _mainWindow.HistoryView.Visibility = Visibility.Visible;
             _mainWindow.OpenHistoryButton.Visibility = Visibility.Collapsed;
 
-            double t = _mainWindow.HistoryListView.Width;
-            WindowWidth = WindowWidth + t;
+            double w = _mainWindow.HistoryListView.Width;
+            double h = _mainWindow.OpenHistoryButton.Height;
+            WindowWidth = WindowWidth + w;
+            WindowHeight = WindowHeight - h;
         }
 
         private void CloseHistory(object param)
@@ -76,8 +126,10 @@ namespace MathParserWPF.ViewModel
             _mainWindow.HistoryView.Visibility = Visibility.Collapsed;
             _mainWindow.OpenHistoryButton.Visibility = Visibility.Visible;
 
-            double t = _mainWindow.HistoryListView.Width;
-            WindowWidth = WindowWidth - t;
+            double w = _mainWindow.HistoryListView.Width;
+            double h = _mainWindow.OpenHistoryButton.Height;
+            WindowWidth = WindowWidth - w;
+            WindowHeight = WindowHeight + h;
         }
 
         private void ShiftHistory(object param)

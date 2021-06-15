@@ -23,7 +23,7 @@ namespace MathParserWPF.ViewModel
         public HistoryManager()
         {
             fileName = Path.Combine(Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData), "DateLinks.xml");
+                Environment.SpecialFolder.ApplicationData), "MathParserData.xml");
             _mainWindow = (MainWindow)Application.Current.MainWindow;
             HistoryCellClickCommand = new DelegateCommand(HistoryCellClick);
             OpenHistory();
@@ -35,15 +35,15 @@ namespace MathParserWPF.ViewModel
 
         private void HistoryCellClick(object param)
         {
-            _mainWindow.Input.Text += param.ToString();
+            _mainWindow.Controller.VirtualKeyboardHandler.InputString += param.ToString();
         }
 
         public void AddNote(MathExpression expression)
         {
             expressions.List.Add(expression);
             if (expressions.List.Count > _mainWindow.HistoryListView.MaxCount) expressions.List.RemoveAt(0);
-            _mainWindow.HistoryListView.Add(expression.Source+ "\n" + expression.Result, 
-                HistoryCellClickCommand, expression.Result, _mainWindow.HistoryManager);
+            _mainWindow.HistoryListView.Add(expression.Source+ "\n= " + expression.Result, 
+                HistoryCellClickCommand, expression.Result, this);
         }
 
         public void OpenHistory()

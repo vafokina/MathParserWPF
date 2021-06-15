@@ -100,8 +100,9 @@
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\HistoryManager.cs" />
     <Compile Include="ViewModel\IDelegateCommand.cs" />
+    <Compile Include="ViewModel\InputChecker.cs" />
+    <Compile Include="ViewModel\PhysicalKeyboardHandler.cs" />
     <Compile Include="ViewModel\VirtualKeyboardHandler.cs" />
-    <Compile Include="ViewModel\VMContainer.cs" />
     <Compile Include="View\ButtonListControl.xaml.cs">
       <DependentUpon>ButtonListControl.xaml</DependentUpon>
     </Compile>

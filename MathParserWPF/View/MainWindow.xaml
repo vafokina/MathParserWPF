@@ -8,12 +8,11 @@
         xmlns:view="clr-namespace:MathParserWPF.View"
         xmlns:viewModel="clr-namespace:MathParserWPF.ViewModel"
         mc:Ignorable="d"
-        Title="Математический синтаксический анализатор" Height="450" Width="{Binding WindowWidth, Mode=TwoWay}" FontSize="18" 
-        KeyDown="MainWindow_OnKeyDown" Closing="Window_Closing">
-    <Window.Resources>
-        <viewModel:VirtualKeyboardHandler x:Key="KeyboardHandler" />
-
-    </Window.Resources>
+        Title="Математический синтаксический анализатор" Height="{Binding WindowHeight, Mode=TwoWay}" 
+        Width="{Binding WindowWidth, Mode=TwoWay}" 
+        FontSize="18" 
+        KeyDown="MainWindow_OnKeyDown" KeyUp="MainWindow_OnKeyUp" Closing="Window_Closing">
+    <Window.Resources> </Window.Resources>
 
     <!--<Window.InputBindings>
         <KeyBinding Key="1"
@@ -33,14 +32,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Menu Height="40">
-                <MenuItem x:Name="OpenHistoryButton" Header="История" Visibility="Collapsed" VerticalAlignment="Center" 
-                          Command="{Binding OpenHistoryCommand}"/>
+            <Menu Height="Auto" Style="{StaticResource MaterialDesignMenu}"  HorizontalAlignment="Stretch">
+                <MenuItem x:Name="OpenHistoryButton" Style="{StaticResource MaterialDesignMenuItem}" Header="История" Visibility="Collapsed" VerticalAlignment="Center" 
+                           Command="{Binding OpenHistoryCommand}"/>
             </Menu>
         </StackPanel>
 
-        <Grid x:Name="CalculatorView" Grid.Row="1" Grid.Column="0" Margin="2,2"
-              DataContext="{StaticResource KeyboardHandler}">
+        <Grid x:Name="CalculatorView" Grid.Row="1" Grid.Column="0" Margin="2,2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" MinHeight="60"/>
                 <RowDefinition Height="*"/>
@@ -61,53 +59,54 @@
                     <RowDefinition Height="Auto"  MinHeight="30"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="Output" Grid.Row="0" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" ></TextBlock>
-                <TextBox x:Name="Input" Grid.Row="1" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" 
-                           Text="{Binding InputString, Mode=TwoWay}" TextChanged="Input_OnTextChanged"/>
+                <TextBlock x:Name="Input" Grid.Row="1" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" 
+                           TextWrapping="Wrap" 
+                           Text="{Binding VirtualKeyboardHandler.DisplayString}"/>
             </Grid>
 
-            <Button Grid.Row="1" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" Click="ClearButton_Click">C</Button>
+            <Button Grid.Row="1" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" 
+                    Command="{Binding VirtualKeyboardHandler.ClearCommand}" CommandParameter="(">C</Button>
             <Button Grid.Row="1" Grid.Column="1" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="(">(</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="(">(</Button>
             <Button Grid.Row="1" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter=")">)</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter=")">)</Button>
             <Button Grid.Row="1" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}"
-                    Command="{Binding AddCharacterCommand}" CommandParameter="+">+</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="+">+</Button>
 
             <Button Grid.Row="2" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="7">7</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="7">7</Button>
             <Button Grid.Row="2" Grid.Column="1" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="8">8</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="8">8</Button>
             <Button Grid.Row="2" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="9">9</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="9">9</Button>
             <Button Grid.Row="2" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}"
-                    Command="{Binding AddCharacterCommand}" CommandParameter="-">-</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="-">-</Button>
 
             <Button Grid.Row="3" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}"
-                    Command="{Binding AddCharacterCommand}" CommandParameter="4">4</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="4">4</Button>
             <Button Grid.Row="3" Grid.Column="1" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="5">5</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="5">5</Button>
             <Button Grid.Row="3" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="6">6</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="6">6</Button>
             <Button Grid.Row="3" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="×">×</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="×">×</Button>
 
             <Button Grid.Row="4" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="1">1</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="1">1</Button>
             <Button Grid.Row="4" Grid.Column="1" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="2">2</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="2">2</Button>
             <Button Grid.Row="4" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="3">3</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="3">3</Button>
             <Button Grid.Row="4" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}"
-                    Command="{Binding AddCharacterCommand}" CommandParameter="÷">÷</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="÷">÷</Button>
 
             <Button Grid.Row="5" Grid.Column="0" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" Visibility="Hidden"></Button>
             <Button Grid.Row="5" Grid.Column="1" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}" 
-                    Command="{Binding AddCharacterCommand}" CommandParameter="0">0</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter="0">0</Button>
             <Button Grid.Row="5" Grid.Column="2" Margin="1,1" Focusable="False" Style="{StaticResource ButtonDigitStyle}"
-                    Command="{Binding AddCharacterCommand}" CommandParameter=".">.</Button>
+                    Command="{Binding VirtualKeyboardHandler.AddCharacterCommand}" CommandParameter=".">.</Button>
             <Button Grid.Row="5" Grid.Column="3" Margin="1,1" Focusable="False" Style="{StaticResource ButtonOperandStyle}"  
-                   DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType=Window}}"
-                   Command="{Binding CalculateCommand}">=</Button>
+                    Command="{Binding CalculateCommand}">=</Button>
                   
         </Grid>
         <Grid x:Name="HistoryView" Grid.Row="1" Grid.Column="1" Margin="2,2"
