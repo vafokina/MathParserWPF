@@ -33,6 +33,7 @@ namespace MathParserWPF.Model
                 throw new InterpreterException("Неопределенный тип узла AST-дерева");
             if (node.NodeType == AstNode.Type.Number)
             {
+                if (node.Text.Length > 12) throw new ComputingException("Программа не может обработать такое большое или маленькое число.");
                 bool ok = double.TryParse(node.Text, NumberStyles.Any, NFI, out double res);
                 if (!ok) throw new ComputingException("Программа не может обработать такое большое или маленькое число.");
                 return res;
