@@ -10,11 +10,11 @@ namespace MathParserWPF.Model.MathOperations
         //    return true;
         //}
 
-        public double Execute(double a, double b)
+        public decimal Execute(decimal a, decimal b)
         {
             try
             {
-                double res = a * b;
+                decimal res = a * b;
                 return res;
             }
             catch (OverflowException)

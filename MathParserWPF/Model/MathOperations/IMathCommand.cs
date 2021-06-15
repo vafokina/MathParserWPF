@@ -2,7 +2,7 @@
 {
     interface IMathCommand
     {
-       // bool CanExecute(double a, double b);
-        double Execute(double a, double b);
+        // bool CanExecute(double a, double b);
+        decimal Execute(decimal a, decimal b);
     }
 }
